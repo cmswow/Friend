@@ -52,6 +52,17 @@ class FriendRepositoryTests {
 
     }
 
+    @Test
+    public void testModify() {
+        Optional<Friend> id = friendRepository.findById(3L);
+        Friend friend = id.orElseThrow();
+
+        friend.change("phone 바꿈", "주소 바꿈");
+
+        friendRepository.save(friend);
+
+
+    }
 
 
 
@@ -61,8 +72,4 @@ class FriendRepositoryTests {
 
 
 
-
-
-
-
-}
+    }
