@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>친구등록</title>
+    <nav>친구 등록 화면</nav>
+</head>
+<body>
+<div>
+    <br/>
+    <div align="center">
+        <form action="/register" method="post">
+            <div class="form-group" align="left">
+                <label for="name">이름 : </label>
+                <input type="text" id="name" name="name" placeholder="이름을 입력하세요" width="400px">
+                <br/><br/>
+                <label for="phone">핸드폰 번호 : </label>
+                <input type="text" id="phone" name="phone" placeholder="핸드폰 번호를 입력하세요" width="200px">
+                <br/><br/>
+                <label for="address">주소 : </label>
+                <input type="text" id="address" name="address" width="200px">
+                <br/><br/>
+                <label for="email">이메일 : </label>
+                <input type="text" id="email" name="email" width="200px">
+                <br/><br/>
+            </div>
+            <button type="submit">제출</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
