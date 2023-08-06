@@ -72,14 +72,14 @@ public class FriendServiceImpl implements FriendService{
         log.info("aaa getTotalPages: " + result.getTotalPages());
         log.info("aaa getSize: " + result.getSize());
         log.info("aaa getTotalElements: " + result.getTotalElements());
-        result.getContent().forEach(board -> log.info(board));
+        result.getContent().forEach(friend -> log.info(friend));
         log.info("------------------------------------------------");
-        // ---------------------------------------
 
 
-        // board(entity)---> boardDTO로 변환(mapper)
+
+
         List<FriendDTO> dtoList = result.getContent().stream()
-                .map(board -> modelMapper.map(board,FriendDTO.class)).collect(Collectors.toList());
+                .map(friend -> modelMapper.map(friend,FriendDTO.class)).collect(Collectors.toList());
 
         PageResponseDTO<FriendDTO> pageResponseDTO =
                 new PageResponseDTO<>(pageRequestDTO, dtoList,(int) result.getTotalElements());

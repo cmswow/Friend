@@ -60,6 +60,30 @@ public class FriendController {
             model.addAttribute("dto",friendDTO);
         }
 
+        @PostMapping("/modify")
+        public String modify(PageRequestDTO pageRequestDTO, @Valid FriendDTO friendDTO,
+                         BindingResult bindingResult, RedirectAttributes rttr){
+        if(bindingResult.hasErrors()){
+            log.info("errors");
+            String link = pageRequestDTO.getLink();
+            rttr.addFlashAttribute("errors",bindingResult.getAllErrors());
+            rttr.addAttribute("fno",friendDTO.getFno());
+            return "redirect:/modify?"+link;
+        }
+        friendService.modify(friendDTO);
+        rttr.addFlashAttribute("result","modified");
+        rttr.addAttribute("fno",friendDTO.getFno());
+        return "redirect:/home";
+    }
+         @PostMapping("/remove")
+         public String remove(Long fno,RedirectAttributes rttr){
+         friendService.remove(fno);
+            rttr.addFlashAttribute("result","removed");
+            return "redirect:/home";
+
+
+    }
+
 
 
 }

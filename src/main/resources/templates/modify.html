@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>read</title>
+</head>
+<body>
+<div class="row" style="margin-bottom:20px; margin-left:1px;">
+    <div class="col-lg-12">
+        <h1 class="page-header">상세 페이지</h1>
+    </div>
+</div>
+
+<div class="panel" style="margin-left:1px;">
+    <div id="contAreaBox">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="table-responsive" style="text-align:center;">
+                    <form th:action="@{/modify}" method="post" id="f1">
+                    <table id="datatable-scroller"
+                           class="table table-bordered tbl_Form">
+                        <caption></caption>
+                        <colgroup>
+                            <col width="250px" />
+                            <col />
+                        </colgroup>
+
+                        <tbody>
+                        <tr>
+                            <td><span class="input-group-text">Fno</span></td>
+                            <td><input type="text" class="active" th:value="${dto.fno}" name="fno" readonly></td>
+                        </tr>
+                        <br><br>
+                        <tr>
+                            <td><span class="input-group-text">이름</span></td>
+                            <td><input type="text" class="active" name="name" th:value="${dto.name}" readonly></td>
+                        </tr>
+                        <br><br>
+                        <tr>
+                            <td><span class="input-group-text">핸드폰 번호</span></td>
+                            <td><input type="text" class="active" placeholder="수정하세요!!ㅎㅎ" name="phone"></td>
+                        </tr>
+                        <br><br>
+                        <tr>
+                            <td><span class="input-group-text">주소</span></td>
+                            <td><input type="text" class="active" name="address" placeholder="수정하세요!!ㅎㅎ"></td>
+                        </tr>
+                        <br><br>
+                        <tr>
+                            <td><span class="input-group-text">이메일</span></td>
+                            <td><input type="text" class="active" name="email" th:value="${dto.email}" readonly></td>
+                        </tr>
+                        <br><br>
+                        </tbody>
+                    </table>
+
+                    <div class="my-4">
+                        <div class="float-end">
+                            <button type="button" class="btn btn-primary listBtn">홈으로</button>
+                            <button type="button" class="btn btn-secondary modBtn">수정하기</button>
+                            <button type="button" class="btn btn-danger removeBtn">삭제하기</button>
+                        </div>
+                    <div style="margin-left:1px;">
+                    </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script layout:fragment="script" th:inline="javascript">
+
+    const errors = [[${errors}]]
+    console.log(errors)
+
+    let errorMsg = ''
+
+    if(errors){
+        for (let i = 0; i < errors.length; i++) {
+            errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`;
+        }
+        history.replaceState({}, null, null)
+        alert(errorMsg)
+    }
+
+    const link = [[${pageRequestDTO.getLink()}]]
+    const formObj = document.querySelector("#f1")
+
+    document.querySelector(".modBtn").addEventListener("click", function(e){
+        e.preventDefault()
+        e.stopPropagation()
+
+        formObj.action = `/modify?${link}`
+        formObj.method ='post'
+        formObj.submit()
+
+
+    }, false)
+
+    document.querySelector(".removeBtn").addEventListener("click", function(e){
+        e.preventDefault()
+        e.stopPropagation()
+
+        formObj.action = `/remove`
+        formObj.method ='post'
+        formObj.submit()
+    }, false)
+
+    document.querySelector(".listBtn").addEventListener("click", function(e){
+        e.preventDefault()
+        e.stopPropagation()
+
+        formObj.reset()
+        self.location =`/home?${link}`
+
+    }, false)
+
+</script>
+</html>

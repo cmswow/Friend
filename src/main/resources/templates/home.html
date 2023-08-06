@@ -30,9 +30,12 @@
             <th width="300">이메일</th>
         </tr>
         </thead>
-        <tbody align="center">
+        <tbody th:with="link=${pageRequestDTO.getLink()}">
         <tr th:each="friend : ${responseDTO.dtoList}">
-            <td th:text="${friend.fno}"></td>
+            <th scope="row">[[${friend.fno}]]</th>
+            <td>
+                <a th:href="|@{/read(fno=${friend.fno})}&${link}|">[[${friend.name}]]</a>
+            </td>
             <td th:text="${friend.name}"></td>
             <td th:text="${friend.phone}"></td>
             <td th:text="${friend.address}"></td>
